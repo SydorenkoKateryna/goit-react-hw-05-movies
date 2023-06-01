@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from 'api/getMovies';
 
-const IMG_URL = 'https://image.tmdb.org/t/p/w200';
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
 const Cast = () => {
   const { id } = useParams();
@@ -23,15 +23,20 @@ const Cast = () => {
     <>
       {movieCast && (
         <ul>
-          {movieCast.map(cast => {
+          {movieCast.map(({ id, profile_path, original_name, character }) => {
             return (
-              <li key={cast.id}>
+              <li key={id}>
                 <img
-                  src={`${IMG_URL}${cast.profile_path}`}
-                  alt={cast.original_name}
+                  src={
+                    profile_path
+                      ? `${IMG_URL}${profile_path}`
+                      : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
+                  }
+                  alt={original_name}
+                  width="200"
                 />
-                <h3>{cast.original_name}</h3>
-                <p>Character: {cast.character}</p>
+                <h3>{original_name}</h3>
+                <p>Character: {character}</p>
               </li>
             );
           })}

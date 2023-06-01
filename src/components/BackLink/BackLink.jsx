@@ -8,12 +8,14 @@ const StyledLink = styled(Link)`
   gap: 4px;
   padding: 8px 0;
   color: black;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   font-weight: 500;
   text-transform: uppercase;
 
   :hover {
-    color: #04b3de;
+    transform: scale(1.03);
+    color: rgba(250, 170, 32, 1);
   }
 `;
 

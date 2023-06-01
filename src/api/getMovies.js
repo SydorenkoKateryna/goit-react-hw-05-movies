@@ -53,3 +53,15 @@ export const getMovieReviews = async id => {
 
   return response;
 };
+
+export const getSearchMovies = async query => {
+  const response = await axios.get(
+    `${BASE_URL}/search/movie?${params.toString()}&query=${query}`
+  );
+
+  if (response.status !== 200) {
+    throw new Error(response.status);
+  }
+
+  return response;
+};

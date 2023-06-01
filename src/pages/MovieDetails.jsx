@@ -1,5 +1,5 @@
-import { useState, useEffect, Suspense } from 'react';
-import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import BackLink from 'components/BackLink';
 import { getMovieDetails } from 'api/getMovies';
 import MovieInformation from 'components/MovieInformation';
@@ -18,31 +18,12 @@ const MovieDetails = () => {
   }, [id]);
 
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkHref = useRef(location.state?.from ?? '/');
 
   return (
     <main>
-      <BackLink to={backLinkHref}>Go back</BackLink>
-
-      {movieDetails && (
-        <>
-          <MovieInformation movieDetails={movieDetails} />
-          <div>
-            <p>Additional information</p>
-            <ul>
-              <li>
-                <Link to="cast">Cast</Link>
-              </li>
-              <li>
-                <Link to="reviews">Reviews</Link>
-              </li>
-            </ul>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Outlet />
-            </Suspense>
-          </div>
-        </>
-      )}
+      <BackLink to={backLinkHref.current}>Go back</BackLink>
+      {movieDetails && <MovieInformation movieDetails={movieDetails} />}
     </main>
   );
 };

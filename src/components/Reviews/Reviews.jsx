@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'api/getMovies';
+import Loader from 'components/Loader';
 
 const Reviews = () => {
   const { id } = useParams();
-  const [movieReviews, setMovieReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [movieReviews, setMovieReviews] = useState(null);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const getData = async () => {
       const {
         data: { results },
       } = await getMovieReviews(id);
       setMovieReviews(results);
+      setIsLoading(false);
     };
 
     getData();
@@ -19,32 +24,23 @@ const Reviews = () => {
 
   return (
     <>
-      {/* {movieReviews && (
-        <ul>
-          {movieReviews.map(review => {
-            return (
-              <li key={review.id}>
-                <h3>Author: {review.author}</h3>
-                <p>{review.content}</p>
-              </li>
-            );
-          })}
-        </ul>
-      )} */}
+      {isLoading && <Loader />}
 
-      {movieReviews.length ? (
+      {(!movieReviews || !movieReviews.length) && !isLoading && (
+        <p>We don't have any reviews for this movie.</p>
+      )}
+
+      {movieReviews && !isLoading && (
         <ul>
-          {movieReviews.map(review => {
+          {movieReviews.map(({ id, author, content }) => {
             return (
-              <li key={review.id}>
-                <h3>Author: {review.author}</h3>
-                <p>{review.content}</p>
+              <li key={id}>
+                <h3>Author: {author}</h3>
+                <p>{content}</p>
               </li>
             );
           })}
         </ul>
-      ) : (
-        <p>We don't have any reviews for this movie.</p>
       )}
     </>
   );
