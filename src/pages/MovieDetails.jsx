@@ -7,11 +7,16 @@ import MovieInformation from 'components/MovieInformation';
 const MovieDetails = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await getMovieDetails(id);
-      setMovieDetails(data);
+      try {
+        const { data } = await getMovieDetails(id);
+        setMovieDetails(data);
+      } catch (error) {
+        setError(error);
+      }
     };
 
     getData();
@@ -23,6 +28,9 @@ const MovieDetails = () => {
   return (
     <main>
       <BackLink to={backLinkHref.current}>Go back</BackLink>
+
+      {error && <h1>{error.message}</h1>}
+
       {movieDetails && <MovieInformation movieDetails={movieDetails} />}
     </main>
   );

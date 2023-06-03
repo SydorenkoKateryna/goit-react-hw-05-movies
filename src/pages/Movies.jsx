@@ -7,6 +7,7 @@ import { getSearchMovies } from 'api/getMovies';
 const Movies = () => {
   const [searchMovies, setSearchMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(null);
   const movieName = searchParams.get('query') ?? '';
 
   const updateQueryString = query => {
@@ -20,10 +21,14 @@ const Movies = () => {
     }
 
     const getData = async () => {
-      const {
-        data: { results },
-      } = await getSearchMovies(movieName);
-      setSearchMovies(results);
+      try {
+        const {
+          data: { results },
+        } = await getSearchMovies(movieName);
+        setSearchMovies(results);
+      } catch (error) {
+        setError(error);
+      }
     };
 
     getData();
@@ -32,6 +37,9 @@ const Movies = () => {
   return (
     <main>
       <Searchbar onSubmit={updateQueryString} />
+
+      {error && <h1>{error.message}</h1>}
+
       {searchMovies && <MovieList movies={searchMovies} />}
     </main>
   );

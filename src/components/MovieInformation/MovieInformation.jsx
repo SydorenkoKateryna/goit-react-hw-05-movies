@@ -2,6 +2,17 @@ import { Link, Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
+import {
+  Section,
+  MovieWrapper,
+  Image,
+  MovieDetailsWrapper,
+  Title,
+  UserScore,
+  OverviewWrapper,
+  GenresWrapper,
+  AddInfoWrapper,
+} from './MovieInformation.styled';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -16,39 +27,35 @@ const MovieInformation = ({ movieDetails }) => {
   };
 
   return (
-    <section>
-      <div style={{ display: 'flex', gap: '40px' }}>
-        <div>
-          <img
-            src={
-              poster_path
-                ? `${IMG_URL}${poster_path}`
-                : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
-            }
-            alt={title}
-            width="500"
-          />
-        </div>
-        <div style={{ maxWidth: '400px' }}>
-          {/* <h2>{movieDetails.title} ({movieDetails.release_date.slice(0, 4)})</h2> */}
-          <h1>
+    <Section>
+      <MovieWrapper>
+        <Image
+          src={
+            poster_path
+              ? `${IMG_URL}${poster_path}`
+              : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
+          }
+          alt={title}
+        />
+        <MovieDetailsWrapper>
+          <Title>
             {title} ({new Date(release_date).getFullYear()})
-          </h1>
-          <p>User Score: {(vote_average * 10).toFixed(0)}%</p>
+          </Title>
+          <UserScore>User Score: {(vote_average * 10).toFixed(0)}%</UserScore>
 
-          <div>
+          <OverviewWrapper>
             <p>Overview</p>
             <p>{overview}</p>
-          </div>
+          </OverviewWrapper>
 
-          <div>
+          <GenresWrapper>
             <p>Genres</p>
             <p>{movieGenres()}</p>
-          </div>
-        </div>
-      </div>
+          </GenresWrapper>
+        </MovieDetailsWrapper>
+      </MovieWrapper>
 
-      <div>
+      <AddInfoWrapper>
         <h2>Additional information</h2>
         <ul>
           <li>
@@ -62,8 +69,8 @@ const MovieInformation = ({ movieDetails }) => {
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-      </div>
-    </section>
+      </AddInfoWrapper>
+    </Section>
   );
 };
 

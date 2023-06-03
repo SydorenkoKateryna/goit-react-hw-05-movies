@@ -2,21 +2,28 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'api/getMovies';
 import Loader from 'components/Loader';
+import { Info, List, Item, Author, Review } from './Reviews.styled';
 
 const Reviews = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [movieReviews, setMovieReviews] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
 
     const getData = async () => {
-      const {
-        data: { results },
-      } = await getMovieReviews(id);
-      setMovieReviews(results);
-      setIsLoading(false);
+      try {
+        const {
+          data: { results },
+        } = await getMovieReviews(id);
+        setMovieReviews(results);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error);
+        setIsLoading(false);
+      }
     };
 
     getData();
@@ -26,21 +33,23 @@ const Reviews = () => {
     <>
       {isLoading && <Loader />}
 
+      {error && <h2>{error.message}</h2>}
+
       {(!movieReviews || !movieReviews.length) && !isLoading && (
-        <p>We don't have any reviews for this movie.</p>
+        <Info>We don't have any reviews for this movie.</Info>
       )}
 
       {movieReviews && !isLoading && (
-        <ul>
+        <List>
           {movieReviews.map(({ id, author, content }) => {
             return (
-              <li key={id}>
-                <h3>Author: {author}</h3>
-                <p>{content}</p>
-              </li>
+              <Item key={id}>
+                <Author>Author: {author}</Author>
+                <Review>{content}</Review>
+              </Item>
             );
           })}
-        </ul>
+        </List>
       )}
     </>
   );

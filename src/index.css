@@ -11,6 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #212121;
 }
 
 code {
@@ -18,17 +19,17 @@ code {
     monospace;
 }
 
-/* h1,
+h1,
 h2,
 h3,
 p {
   margin-top: 0;
   margin-bottom: 0;
-} */
+}
 
-/* a {
+a {
   text-decoration: none;
-} */
+}
 
 img {
   display: block;
@@ -36,9 +37,9 @@ img {
   height: auto;
 }
 
-/* ul,
+ul,
 ol {
   list-style: none;
   padding: 0;
   margin: 0;
-} */
+}

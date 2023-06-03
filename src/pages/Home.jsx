@@ -4,6 +4,7 @@ import MovieList from 'components/MovieList';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (trendingMovies) {
@@ -11,10 +12,14 @@ const Home = () => {
     }
 
     const getData = async () => {
-      const {
-        data: { results },
-      } = await getTrendingMovies();
-      setTrendingMovies(results);
+      try {
+        const {
+          data: { results },
+        } = await getTrendingMovies();
+        setTrendingMovies(results);
+      } catch (error) {
+        setError(error);
+      }
     };
 
     getData();
@@ -22,8 +27,11 @@ const Home = () => {
 
   return (
     <main>
-      <h1>Trending today</h1>
-      {trendingMovies && <MovieList movies={trendingMovies} />}
+      {error && <h1>{error.message}</h1>}
+
+      {trendingMovies && (
+        <MovieList movies={trendingMovies} title="Trending today" />
+      )}
     </main>
   );
 };
