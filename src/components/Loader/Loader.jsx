@@ -2,8 +2,9 @@ import { RotatingLines } from 'react-loader-spinner';
 import styled from 'styled-components';
 
 const StyledLoader = styled.div`
+  width: 80px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
 `;
 
 const Loader = () => {

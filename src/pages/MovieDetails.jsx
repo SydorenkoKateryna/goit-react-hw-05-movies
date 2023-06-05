@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import BackLink from 'components/BackLink';
-import { getMovieDetails } from 'api/getMovies';
 import MovieInformation from 'components/MovieInformation';
+import Error from 'components/Error';
+import { getMovieDetails } from 'api/getMovies';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -12,7 +13,9 @@ const MovieDetails = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await getMovieDetails(id);
+        const response = await getMovieDetails(id);
+        const { data } = response;
+
         setMovieDetails(data);
       } catch (error) {
         setError(error);
@@ -29,7 +32,7 @@ const MovieDetails = () => {
     <main>
       <BackLink to={backLinkHref.current}>Go back</BackLink>
 
-      {error && <h1>{error.message}</h1>}
+      {error && <Error message={error.message} />}
 
       {movieDetails && <MovieInformation movieDetails={movieDetails} />}
     </main>

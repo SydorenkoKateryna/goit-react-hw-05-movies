@@ -18,6 +18,8 @@ const Searchbar = ({ onSubmit }) => {
     }
 
     onSubmit(normalizedValue);
+
+    setValue('');
   };
 
   return (

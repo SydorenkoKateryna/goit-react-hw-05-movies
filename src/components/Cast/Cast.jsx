@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from 'api/getMovies';
+import Error from 'components/Error';
 import { List, Item, Image, Name, Character } from './Cast.styled';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -13,9 +14,10 @@ const Cast = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+        const response = await getMovieCast(id);
         const {
           data: { cast },
-        } = await getMovieCast(id);
+        } = response;
         setMovieCast(cast);
       } catch (error) {
         setError(error);
@@ -27,7 +29,7 @@ const Cast = () => {
 
   return (
     <>
-      {error && <h2>{error.message}</h2>}
+      {error && <Error message={error.message} />}
 
       {movieCast && (
         <List>
