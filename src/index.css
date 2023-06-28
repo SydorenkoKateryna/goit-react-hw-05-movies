@@ -43,3 +43,48 @@ ol {
   padding: 0;
   margin: 0;
 }
+
+.containerStyled {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 10px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+
+  & > li {
+    background-color: rgb(33, 33, 33, 0.4);
+    color: #ffffff;
+  }
+
+  & > li:hover,
+  & > li:focus {
+    transform: scale(1.2);
+  }
+
+  .disabledButtonStyled {
+    background-color: rgb(233, 4, 24, 0.4);
+  }
+
+  .activePageStyled {
+    background-color: rgb(233, 4, 24);
+  }
+
+  & a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    min-height: 20px;
+    cursor: pointer;
+
+    @media screen and (min-width: 768px) {
+      min-width: 30px;
+      min-height: 30px;
+    }
+  }
+}

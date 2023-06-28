@@ -6,9 +6,14 @@ const params = new URLSearchParams({
   page: 1,
 });
 
-export const getTrendingMovies = async () => {
+export const getTrendingMovies = async page => {
+  const paramsForTrendingMovies = new URLSearchParams({
+    api_key: 'ee704e183d11b50a0d8be9a20340402f',
+    page,
+  });
+
   const response = await axios.get(
-    `${BASE_URL}trending/movie/day?${params.toString()}`
+    `${BASE_URL}trending/movie/day?${paramsForTrendingMovies.toString()}`
   );
 
   if (response.status !== 200) {
@@ -54,9 +59,14 @@ export const getMovieReviews = async id => {
   return response;
 };
 
-export const getSearchMovies = async query => {
+export const getSearchMovies = async (query, page) => {
+  const paramsForSearchMovies = new URLSearchParams({
+    api_key: 'ee704e183d11b50a0d8be9a20340402f',
+    page,
+  });
+
   const response = await axios.get(
-    `${BASE_URL}/search/movie?${params.toString()}&query=${query}`
+    `${BASE_URL}/search/movie?${paramsForSearchMovies.toString()}&query=${query}`
   );
 
   if (response.status !== 200) {
