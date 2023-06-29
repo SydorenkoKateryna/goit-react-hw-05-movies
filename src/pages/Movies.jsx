@@ -12,17 +12,19 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const movieName = searchParams.get('query') ?? '';
-
-  const updateQueryString = query => {
-    const nextParams = query !== '' ? { query } : {};
-    setSearchParams(nextParams);
-  };
-
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(null);
   const itemsPerPage = 20;
 
   const pageCount = Math.ceil(totalResults ? totalResults / itemsPerPage : 0);
+
+  const updateQueryString = query => {
+    if (query !== movieName) {
+      setPage(1);
+    }
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
 
   const handlePageClick = event => {
     setPage(event.selected + 1);
@@ -49,6 +51,13 @@ const Movies = () => {
         }
 
         setSearchMovies(results);
+
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+
         if (total_results > 10000) {
           setTotalResults(10000);
         } else {
@@ -79,6 +88,7 @@ const Movies = () => {
               onPageChange={handlePageClick}
               pageRangeDisplayed={1}
               pageCount={pageCount}
+              forcePage={page - 1}
               previousLabel="🡰"
               renderOnZeroPageCount={null}
               containerClassName="containerStyled"

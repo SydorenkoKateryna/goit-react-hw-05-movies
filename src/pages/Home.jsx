@@ -33,6 +33,12 @@ const Home = () => {
 
         setTrendingMovies(results);
 
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+
         if (total_results > 10000) {
           setTotalResults(10000);
         } else {
