@@ -24,8 +24,14 @@ export const Container = styled.div`
   }
 `;
 
+export const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Header = styled.header`
-  border-bottom: 1px solid #ececec;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 export const Nav = styled.nav`

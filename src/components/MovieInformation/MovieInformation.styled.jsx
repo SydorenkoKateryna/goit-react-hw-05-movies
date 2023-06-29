@@ -110,7 +110,7 @@ export const AddInfoWrapper = styled.div`
     line-height: calc(16 / 12);
     text-transform: uppercase;
     text-decoration: underline;
-    color: rgb(33, 33, 33, 0.6);
+    color: ${({ theme }) => theme.colors.colorBackLink};
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
     @media (min-width: 768px) {

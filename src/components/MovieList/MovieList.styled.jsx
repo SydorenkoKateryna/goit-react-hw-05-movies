@@ -31,6 +31,7 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
+  background-color: ${({ theme }) => theme.colors.cardBackground};
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -79,7 +80,7 @@ export const SecondTitle = styled.h2`
   font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
-  color: #212121;
+  color: ${({ theme }) => theme.colors.color};
 
   @media (min-width: 768px) {
     font-size: 14px;

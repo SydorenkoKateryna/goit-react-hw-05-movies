@@ -13,8 +13,8 @@ export const Form = styled.form`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #ffffff;
-  border: 1px solid #212121;
+  background-color: ${({ theme }) => theme.colors.formBackground};
+  border: ${({ theme }) => theme.colors.border};
   border-radius: 2px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.5),
     0px 4px 5px 0px rgba(0, 0, 0, 0.1), 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
@@ -29,6 +29,8 @@ export const Input = styled.input`
   border: none;
   outline: none;
   padding: 0px 8px;
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.color};
 
   @media (min-width: 768px) {
     font-size: 14px;
@@ -40,6 +42,8 @@ export const Input = styled.input`
 
   &::placeholder {
     font-family: inherit;
+    font-size: inherit;
+    color: inherit;
   }
 `;
 
@@ -50,7 +54,8 @@ export const Button = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-color: #ffffff;
+  color: ${({ theme }) => theme.colors.color};
+  background-color: ${({ theme }) => theme.colors.formBackground};
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;

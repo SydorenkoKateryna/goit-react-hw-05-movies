@@ -2,18 +2,24 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container, Header, Nav, Link } from './Layout.styled';
+import { Container, HeaderWrapper, Header, Nav, Link } from './Layout.styled';
 import Loader from 'components/Loader';
+import { GlobalStyles } from 'components/Theme/Global';
+import { SwitchThemeBtn } from 'components/Theme/SwitchThemeBtn';
 
 const Layout = () => {
   return (
     <>
+      <GlobalStyles />
       <Header>
         <Container>
-          <Nav>
-            <Link to="/">Home</Link>
-            <Link to="/movies">Movies</Link>
-          </Nav>
+          <HeaderWrapper>
+            <Nav>
+              <Link to="/">Home</Link>
+              <Link to="/movies">Movies</Link>
+            </Nav>
+            <SwitchThemeBtn />
+          </HeaderWrapper>
         </Container>
       </Header>
       <Container>

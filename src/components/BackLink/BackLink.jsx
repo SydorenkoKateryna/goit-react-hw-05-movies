@@ -7,7 +7,7 @@ const StyledLink = styled(Link)`
   align-items: center;
   gap: 4px;
   padding: 8px 0 0;
-  color: rgb(33, 33, 33, 0.6);
+  color: ${({ theme }) => theme.colors.colorBackLink};
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
