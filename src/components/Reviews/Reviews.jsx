@@ -38,7 +38,7 @@ const Reviews = () => {
       {error && <Error message={error.message} />}
 
       {(!movieReviews || !movieReviews.length) && !isLoading && (
-        <Info>We don't have any reviews for this movie.</Info>
+        <Info>Unfortunately, we don't have any reviews for this movie.</Info>
       )}
 
       {movieReviews && !isLoading && (

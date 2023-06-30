@@ -15,6 +15,8 @@ import {
 } from './MovieInformation.styled';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const DEFAULT_IMAGE =
+  'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg';
 
 const MovieInformation = ({ movieDetails }) => {
   const { genres, poster_path, title, release_date, vote_average, overview } =
@@ -30,12 +32,12 @@ const MovieInformation = ({ movieDetails }) => {
     <Section>
       <MovieWrapper>
         <Image
-          src={
-            poster_path
-              ? `${IMG_URL}${poster_path}`
-              : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
-          }
           alt={title}
+          src={poster_path ? `${IMG_URL}${poster_path}` : DEFAULT_IMAGE}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = DEFAULT_IMAGE;
+          }}
         />
         <MovieDetailsWrapper>
           <Title>

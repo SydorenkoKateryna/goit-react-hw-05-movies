@@ -11,6 +11,8 @@ import {
 } from './MovieList.styled';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const DEFAULT_IMAGE =
+  'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg';
 
 const MovieList = ({ movies, title }) => {
   const location = useLocation();
@@ -28,12 +30,12 @@ const MovieList = ({ movies, title }) => {
                 state={{ from: location }}
               >
                 <Image
-                  src={
-                    poster_path
-                      ? `${IMG_URL}${poster_path}`
-                      : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
-                  }
                   alt={title}
+                  src={poster_path ? `${IMG_URL}${poster_path}` : DEFAULT_IMAGE}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = DEFAULT_IMAGE;
+                  }}
                 />
                 <InfoWrapper>
                   <SecondTitle>

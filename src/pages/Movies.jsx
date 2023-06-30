@@ -6,28 +6,38 @@ import Searchbar from 'components/Searchbar';
 import Error from 'components/Error';
 import { getSearchMovies } from 'api/getMovies';
 import ReactPaginate from 'react-paginate';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 const Movies = () => {
   const [searchMovies, setSearchMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const movieName = searchParams.get('query') ?? '';
-  const [page, setPage] = useState(1);
+  const page = searchParams.get('page') ?? '1';
   const [totalResults, setTotalResults] = useState(null);
   const itemsPerPage = 20;
-
   const pageCount = Math.ceil(totalResults ? totalResults / itemsPerPage : 0);
 
   const updateQueryString = query => {
-    if (query !== movieName) {
-      setPage(1);
+    if (query === movieName) {
+      return;
     }
+
     const nextParams = query !== '' ? { query } : {};
-    setSearchParams(nextParams);
+
+    setSearchParams({
+      ...nextParams,
+      page: 1,
+    });
   };
 
   const handlePageClick = event => {
-    setPage(event.selected + 1);
+    setSearchParams(prevParams => {
+      return new URLSearchParams({
+        ...Object.fromEntries(prevParams.entries()),
+        page: event.selected + 1,
+      });
+    });
   };
 
   useEffect(() => {
@@ -84,12 +94,12 @@ const Movies = () => {
           {pageCount > 1 && (
             <ReactPaginate
               breakLabel="..."
-              nextLabel="🡲"
+              nextLabel={<AiOutlineArrowRight size={15} />}
               onPageChange={handlePageClick}
               pageRangeDisplayed={1}
               pageCount={pageCount}
               forcePage={page - 1}
-              previousLabel="🡰"
+              previousLabel={<AiOutlineArrowLeft size={15} />}
               renderOnZeroPageCount={null}
               containerClassName="containerStyled"
               disabledClassName="disabledButtonStyled"

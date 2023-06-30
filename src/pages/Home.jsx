@@ -3,26 +3,23 @@ import { getTrendingMovies } from 'api/getMovies';
 import ReactPaginate from 'react-paginate';
 import MovieList from 'components/MovieList';
 import Error from 'components/Error';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { useSearchParams } from 'react-router-dom';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState(null);
   const [error, setError] = useState(null);
-
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page') ?? '1';
   const [totalResults, setTotalResults] = useState(null);
   const itemsPerPage = 20;
-
   const pageCount = Math.ceil(totalResults ? totalResults / itemsPerPage : 0);
 
   const handlePageClick = event => {
-    setPage(event.selected + 1);
+    setSearchParams({ page: event.selected + 1 });
   };
 
   useEffect(() => {
-    // if (trendingMovies) {
-    //   return;
-    // }
-
     const getData = async () => {
       try {
         const response = await getTrendingMovies(page);
@@ -62,11 +59,12 @@ const Home = () => {
           {pageCount > 1 && (
             <ReactPaginate
               breakLabel="..."
-              nextLabel="🡲"
+              nextLabel={<AiOutlineArrowRight size={15} />}
               onPageChange={handlePageClick}
               pageRangeDisplayed={1}
               pageCount={pageCount}
-              previousLabel="🡰"
+              forcePage={page - 1}
+              previousLabel={<AiOutlineArrowLeft size={15} />}
               renderOnZeroPageCount={null}
               containerClassName="containerStyled"
               disabledClassName="disabledButtonStyled"
