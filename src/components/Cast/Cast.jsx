@@ -41,13 +41,13 @@ const Cast = () => {
 
       {error && <Error message={error.message} />}
 
-      {(!movieCast || !movieCast.length) && !isLoading && (
+      {(!movieCast || !movieCast.length) && !isLoading && !error && (
         <Info>
           Unfortunately, we don't have any cast information for this movie.
         </Info>
       )}
 
-      {movieCast && !isLoading && (
+      {movieCast && !isLoading && !error && (
         <List>
           {movieCast.map(({ id, profile_path, original_name, character }) => {
             return (

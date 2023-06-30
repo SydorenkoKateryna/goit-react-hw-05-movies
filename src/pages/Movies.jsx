@@ -87,7 +87,7 @@ const Movies = () => {
 
       {error && <Error message={error.message} />}
 
-      {searchMovies && (
+      {searchMovies && !error && (
         <>
           <MovieList movies={searchMovies} />
 

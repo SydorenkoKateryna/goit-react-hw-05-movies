@@ -37,11 +37,11 @@ const Reviews = () => {
 
       {error && <Error message={error.message} />}
 
-      {(!movieReviews || !movieReviews.length) && !isLoading && (
+      {(!movieReviews || !movieReviews.length) && !isLoading && !error && (
         <Info>Unfortunately, we don't have any reviews for this movie.</Info>
       )}
 
-      {movieReviews && !isLoading && (
+      {movieReviews && !isLoading && !error && (
         <List>
           {movieReviews.map(({ id, author, content }) => {
             return (

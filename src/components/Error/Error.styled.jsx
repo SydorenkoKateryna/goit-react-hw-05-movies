@@ -9,7 +9,7 @@ export const Message = styled.strong`
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;
-  color: #212121;
+  color: ${({ theme }) => theme.colors.color};
 
   @media screen and (min-width: 768px) {
     padding-top: 32px;

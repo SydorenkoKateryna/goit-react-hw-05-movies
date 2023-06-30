@@ -53,7 +53,7 @@ const Home = () => {
     <main style={{ paddingBottom: '60px' }}>
       {error && <Error message={error.message} />}
 
-      {trendingMovies && (
+      {trendingMovies && !error && (
         <>
           <MovieList movies={trendingMovies} title="Trending today" />
           {pageCount > 1 && (

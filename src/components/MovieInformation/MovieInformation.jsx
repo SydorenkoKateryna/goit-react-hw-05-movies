@@ -23,6 +23,10 @@ const MovieInformation = ({ movieDetails }) => {
     movieDetails;
 
   const movieGenres = () => {
+    if (!genres || !genres.length) {
+      return 'There are no genres.';
+    }
+
     const normalizedGenres = [];
     genres.map(genre => normalizedGenres.push(genre.name));
     return normalizedGenres.join(', ');
@@ -47,7 +51,7 @@ const MovieInformation = ({ movieDetails }) => {
 
           <OverviewWrapper>
             <p>Overview</p>
-            <p>{overview}</p>
+            {overview ? <p>{overview}</p> : <p>There is no overview.</p>}
           </OverviewWrapper>
 
           <GenresWrapper>

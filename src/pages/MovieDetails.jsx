@@ -34,7 +34,9 @@ const MovieDetails = () => {
 
       {error && <Error message={error.message} />}
 
-      {movieDetails && <MovieInformation movieDetails={movieDetails} />}
+      {movieDetails && !error && (
+        <MovieInformation movieDetails={movieDetails} />
+      )}
     </main>
   );
 };

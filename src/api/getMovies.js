@@ -1,19 +1,11 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
-const params = new URLSearchParams({
-  api_key: 'ee704e183d11b50a0d8be9a20340402f',
-  page: 1,
-});
+const API_KEY = 'ee704e183d11b50a0d8be9a20340402f';
 
 export const getTrendingMovies = async page => {
-  const paramsForTrendingMovies = new URLSearchParams({
-    api_key: 'ee704e183d11b50a0d8be9a20340402f',
-    page,
-  });
-
   const response = await axios.get(
-    `${BASE_URL}trending/movie/day?${paramsForTrendingMovies.toString()}`
+    `${BASE_URL}trending/movie/day?api_key=${API_KEY}&page=${page}`
   );
 
   if (response.status !== 200) {
@@ -25,7 +17,7 @@ export const getTrendingMovies = async page => {
 
 export const getMovieDetails = async id => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}?${params.toString()}`
+    `${BASE_URL}/movie/${id}?api_key=${API_KEY}`
   );
 
   if (response.status !== 200) {
@@ -37,7 +29,7 @@ export const getMovieDetails = async id => {
 
 export const getMovieCast = async id => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}/credits?${params.toString()}`
+    `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`
   );
 
   if (response.status !== 200) {
@@ -49,7 +41,7 @@ export const getMovieCast = async id => {
 
 export const getMovieReviews = async id => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}/reviews?${params.toString()}`
+    `${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}`
   );
 
   if (response.status !== 200) {
@@ -60,13 +52,8 @@ export const getMovieReviews = async id => {
 };
 
 export const getSearchMovies = async (query, page) => {
-  const paramsForSearchMovies = new URLSearchParams({
-    api_key: 'ee704e183d11b50a0d8be9a20340402f',
-    page,
-  });
-
   const response = await axios.get(
-    `${BASE_URL}/search/movie?${paramsForSearchMovies.toString()}&query=${query}`
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`
   );
 
   if (response.status !== 200) {
