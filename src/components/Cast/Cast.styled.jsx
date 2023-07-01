@@ -18,22 +18,26 @@ export const Info = styled.p`
 
 export const List = styled.ul`
   margin-top: 20px;
-
   display: grid;
   grid-template-columns: repeat(1, minmax(240px, 336px));
   grid-row-gap: 20px;
+  max-height: 505px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media (min-width: 768px) {
     display: grid;
     grid-template-columns: repeat(4, 161px);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
+    max-height: 655px;
   }
 
   @media (min-width: 1280px) {
     display: grid;
     grid-template-columns: repeat(5, 226px);
     grid-column-gap: 21.5px;
+    max-height: 940px;
   }
 `;
 

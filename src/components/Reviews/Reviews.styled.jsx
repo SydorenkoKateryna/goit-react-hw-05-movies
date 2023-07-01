@@ -18,6 +18,17 @@ export const Info = styled.p`
 
 export const List = styled.ul`
   margin-top: 20px;
+  max-height: 505px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (min-width: 768px) {
+    max-height: 655px;
+  }
+
+  @media (min-width: 1280px) {
+    max-height: 940px;
+  }
 `;
 
 export const Item = styled.li`
